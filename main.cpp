@@ -52,6 +52,7 @@ alumno.cicloEstudio = pedirNumeroEntero ("Ingrese ciclo de estudio: ") ;
 // Validar número de cédula
 alumno.numeroCedula = pedirNumeroEntero ("Ingrese numero de cedula: ") ;
 }
+
 void pedirNotas (Alumno& alumno) {
 alumno.calificaciones.resize (5) ; // Redimensionar el vector a 5 calificaciones
 
@@ -75,7 +76,7 @@ double calcularPromedio(const Alumno& alumno) {
 
 void mostrarResultados(const vector<Alumno>& aprobados, const vector<Alumno>& reprobados) {
 	cout << "\n==================== RESULTADOS ====================\n";
-	
+
 	// Mostrar aprobados
 	cout << "\n-------------------- APROBADOS --------------------\n";
 	cout << left << setw(30) << "Nombre Completo" 
@@ -91,7 +92,7 @@ void mostrarResultados(const vector<Alumno>& aprobados, const vector<Alumno>& re
 			<< fixed << setprecision(2) << alumno.promedio << endl;
 	}
 	
-    	// Mostrar reprobados
+	// Mostrar reprobados
 	cout << "\n-------------------- REPROBADOS --------------------\n";
 	cout << left << setw(30) << "Nombre Completo" 
 		<< setw(10) << "Ciclo" 
@@ -107,4 +108,39 @@ void mostrarResultados(const vector<Alumno>& aprobados, const vector<Alumno>& re
 	}
 	
 	cout << "\nUNA 2025\n";
+}
+
+
+int main() {
+	int nAlumnos = pedirNumeroEntero("¿Cuántos alumnos desea evaluar?: "); // Pedir número de alumnos
+	
+	vector<Alumno> alumnos(nAlumnos); // Crear vector de alumnos
+	vector<Alumno> aprobados;
+	vector<Alumno> reprobados;
+	
+	for (int i = 0; i < nAlumnos; i++) {
+		pedirDatosAlumno(alumnos[i]); // Pedir datos del alumno
+		pedirNotas(alumnos[i]); // Pedir notas
+		alumnos[i].promedio = calcularPromedio(alumnos[i]); // Calcular promedio
+		
+		// Determinar estado
+		if (alumnos[i].promedio >= 70.0) {
+			aprobados.push_back(alumnos[i]);
+		} else {
+			reprobados.push_back(alumnos[i]);
+		}
+	}
+	
+	mostrarResultados(aprobados, reprobados); // Mostrar resultados
+	
+	for (const Alumno& alumno : reprobados) {
+		cout << left << setw(30) << (alumno.primerNombre + " " + alumno.primerApellido + " " + alumno.segundoApellido)
+			<< setw(10) << alumno.cicloEstudio 
+			<< setw(10) << alumno.numeroCedula 
+			<< fixed << setprecision(2) << alumno.promedio << endl;
+	}
+	
+	cout << "\nUNA 2025\n";
+
+	return 0;
 }
