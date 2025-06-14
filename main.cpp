@@ -1,3 +1,21 @@
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <vector>
+#include <limits> 
+
+using namespace std;
+
+struct Alumno {
+	string primerNombre;
+	string primerApellido;
+	string segundoApellido;
+	int cicloEstudio;
+	int numeroCedula;
+	vector<double> calificaciones; 
+	double promedio;
+};
+
 int pedirNumeroEntero (const string& mensaje) {
     int numero;
     while (true) {
@@ -12,3 +30,4 @@ int pedirNumeroEntero (const string& mensaje) {
     break; // Salir del bucle si la entrada es válida
     
     return numero;
+
